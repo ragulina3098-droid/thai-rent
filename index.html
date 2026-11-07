@@ -1,1 +1,77 @@
-
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thai Rent — Аренда транспорта в Таиланде</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f7fa;color:#17324d}
+header{background:#087caa;color:white;padding:22px 16px;text-align:center}
+header h1{margin:0;font-size:34px}
+header p{margin:8px 0}
+main{max-width:960px;margin:auto;padding:18px}
+.hero{background:linear-gradient(135deg,#087caa,#10b6b2);color:white;padding:32px 20px;border-radius:18px;text-align:center}
+.hero h2{font-size:27px;margin:0 0 12px}
+.search{background:white;padding:20px;border-radius:16px;margin:20px 0;box-shadow:0 3px 14px #0001}
+select,button{width:100%;padding:14px;margin:7px 0;border-radius:10px;font-size:16px}
+select{border:1px solid #ccd7df;background:white}
+button{border:0;background:#087caa;color:white;font-weight:bold;cursor:pointer}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:white;padding:22px;border-radius:16px;text-align:center;box-shadow:0 3px 14px #0001}
+.emoji{font-size:48px}
+.card h3{margin:10px 0}
+.card p{color:#526879}
+.note{background:#e6f5fa;padding:18px;border-radius:14px;margin-top:20px}
+footer{text-align:center;padding:25px;color:#637887}
+</style>
+</head>
+<body>
+<header><h1>THAI RENT</h1><p>Аренда транспорта по всему Таиланду</p></header>
+<main>
+<section class="hero">
+<h2>Найди транспорт для своего путешествия</h2>
+<p>Автомобили, мотоциклы и скутеры в одном месте</p>
+</section>
+<section class="search">
+<h2>Поиск аренды</h2>
+<label for="city">Город</label>
+<select id="city">
+<option value="">Все города</option>
+<option>Пхукет</option><option>Паттайя</option>
+<option>Бангкок</option><option>Самуи</option>
+<option>Краби</option><option>Чиангмай</option>
+<option>Хуахин</option>
+</select>
+<label for="type">Транспорт</label>
+<select id="type">
+<option value="">Все категории</option>
+<option>Автомобиль</option>
+<option>Мотоцикл</option>
+<option>Скутер</option>
+</select>
+<button onclick="searchRent()">Найти транспорт</button>
+<p id="result" aria-live="polite"></p>
+</section>
+<h2>Категории транспорта</h2>
+<div class="cards">
+<div class="card"><div class="emoji">🚗</div><h3>Автомобили</h3><p>Для семьи, отдыха и поездок</p></div>
+<div class="card"><div class="emoji">🏍️</div><h3>Мотоциклы</h3><p>Для свободных путешествий</p></div>
+<div class="card"><div class="emoji">🛵</div><h3>Скутеры</h3><p>Для города и пляжей</p></div>
+</div>
+<section class="note">
+<h2>Разместить объявление</h2>
+<p>Скоро владельцы транспорта смогут добавлять свои предложения на Thai Rent.</p>
+<p>Сейчас работает демонстрационная версия сайта.</p>
+</section>
+</main>
+<footer>© 2026 Thai Rent · Thailand</footer>
+<script>
+function searchRent(){
+const city=document.getElementById('city').value||'всему Таиланду';
+const type=document.getElementById('type').value||'Все категории';
+document.getElementById('result').textContent='Поиск: '+type+' — '+city+'. Каталог объявлений скоро появится.';
+}
+</script>
+</body>
+</html>
