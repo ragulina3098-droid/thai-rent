@@ -474,3 +474,241 @@ render();
 </script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thai Rent — Аренда транспорта</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f7fa;color:#17324d}
+header{background:#087caa;color:white;text-align:center;padding:25px 15px}
+h1{margin:0;font-size:36px}
+header p{margin:8px}
+main{max-width:1000px;margin:auto;padding:16px}
+.hero{background:linear-gradient(120deg,#087caa,#10b6b2);color:white;padding:30px 18px;border-radius:16px;text-align:center}
+section{margin:20px 0}
+.panel,.card{background:white;padding:20px;border-radius:14px;box-shadow:0 3px 12px #0001}
+input,select,button{width:100%;padding:13px;margin:7px 0;border-radius:9px;font-size:16px}
+input,select{border:1px solid #ccd7df;background:white}
+button{border:0;background:#087caa;color:white;font-weight:bold;cursor:pointer}
+button:active{opacity:.75}
+.secondary{background:#0b948f}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.card{text-align:center}
+.emoji{font-size:45px}
+.price{font-size:22px;font-weight:bold;color:#087caa}
+.small{color:#607586;font-size:14px}
+.hidden{display:none}
+footer{text-align:center;padding:25px;color:#607586}
+</style>
+</head>
+<body>
+
+<header>
+<h1>THAI RENT</h1>
+<p>Аренда автомобилей, мотоциклов и скутеров по всему Таиланду</p>
+</header>
+
+<main>
+<section class="hero">
+<h2>Найди транспорт для путешествия</h2>
+<p>Выбирай город, категорию и подходящее предложение</p>
+</section>
+
+<section class="panel">
+<h2>🔎 Поиск аренды</h2>
+<label for="city">Город</label>
+<select id="city">
+<option value="">Все города</option>
+<option>Пхукет</option>
+<option>Паттайя</option>
+<option>Бангкок</option>
+<option>Самуи</option>
+<option>Краби</option>
+<option>Чиангмай</option>
+<option>Хуахин</option>
+</select>
+
+<label for="type">Транспорт</label>
+<select id="type">
+<option value="">Все категории</option>
+<option>Автомобиль</option>
+<option>Мотоцикл</option>
+<option>Скутер</option>
+</select>
+
+<button onclick="searchRent()">Найти транспорт</button>
+<button class="secondary" onclick="resetSearch()">Показать всё</button>
+</section>
+
+<section>
+<h2>Категории транспорта</h2>
+<div class="cards">
+<div class="card">
+<div class="emoji">🚗</div>
+<h3>Автомобили</h3>
+<button onclick="chooseType('Автомобиль')">Смотреть</button>
+</div>
+<div class="card">
+<div class="emoji">🏍️</div>
+<h3>Мотоциклы</h3>
+<button onclick="chooseType('Мотоцикл')">Смотреть</button>
+</div>
+<div class="card">
+<div class="emoji">🛵</div>
+<h3>Скутеры</h3>
+<button onclick="chooseType('Скутер')">Смотреть</button>
+</div>
+</div>
+</section>
+
+<section id="catalog">
+<h2>Каталог аренды</h2>
+<p id="count" aria-live="polite"></p>
+<div id="list" class="cards"></div>
+</section>
+
+<section class="panel">
+<h2>➕ Разместить объявление</h2>
+<p class="small">Пока объявления сохраняются только в этом браузере.</p>
+
+<form id="adForm">
+<input id="name" placeholder="Название транспорта" required maxlength="100">
+
+<select id="adCity" required>
+<option value="">Выберите город</option>
+<option>Пхукет</option>
+<option>Паттайя</option>
+<option>Бангкок</option>
+<option>Самуи</option>
+<option>Краби</option>
+<option>Чиангмай</option>
+<option>Хуахин</option>
+</select>
+
+<select id="adType" required>
+<option value="">Категория транспорта</option>
+<option>Автомобиль</option>
+<option>Мотоцикл</option>
+<option>Скутер</option>
+</select>
+
+<input id="price" type="number" min="1" max="1000000" placeholder="Цена за сутки, ฿" required>
+<input id="contact" placeholder="Телефон или Telegram для связи" required maxlength="150">
+<button type="submit">Опубликовать объявление</button>
+</form>
+<p id="status" aria-live="polite"></p>
+</section>
+</main>
+
+<footer>© 2026 Thai Rent · Thailand</footer>
+
+<script>
+const STORAGE_KEY='thaiRentAdsV1';
+let ads=[];
+
+try{
+const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
+ads=Array.isArray(saved)?saved:[];
+}catch(e){ads=[];}
+
+function saveAds(){
+try{
+localStorage.setItem(STORAGE_KEY,JSON.stringify(ads));
+return true;
+}catch(e){return false;}
+}
+
+function el(tag,text,className){
+const node=document.createElement(tag);
+if(text!==undefined)node.textContent=text;
+if(className)node.className=className;
+return node;
+}
+
+function render(){
+const city=document.getElementById('city').value;
+const type=document.getElementById('type').value;
+const list=document.getElementById('list');
+list.replaceChildren();
+
+const filtered=ads.filter(a=>
+(!city||a.city===city)&&(!type||a.type===type)
+);
+
+document.getElementById('count').textContent=
+'Найдено объявлений: '+filtered.length;
+
+if(!filtered.length){
+list.appendChild(el('p','Пока нет объявлений по выбранным параметрам.'));
+return;
+}
+
+filtered.forEach(a=>{
+const card=el('article',undefined,'card');
+const emoji=a.type==='Автомобиль'?'🚗':
+a.type==='Мотоцикл'?'🏍️':'🛵';
+
+card.appendChild(el('div',emoji,'emoji'));
+card.appendChild(el('h3',a.name));
+card.appendChild(el('p',a.city+' · '+a.type));
+card.appendChild(el('p',Number(a.price).toLocaleString('ru-RU')+' ฿ / сутки','price'));
+card.appendChild(el('p','Контакт: '+a.contact));
+
+list.appendChild(card);
+});
+}
+
+function searchRent(){
+render();
+document.getElementById('catalog').scrollIntoView({behavior:'smooth'});
+}
+
+function resetSearch(){
+document.getElementById('city').value='';
+document.getElementById('type').value='';
+searchRent();
+}
+
+function chooseType(type){
+document.getElementById('type').value=type;
+searchRent();
+}
+
+document.getElementById('adForm').addEventListener('submit',function(e){
+e.preventDefault();
+
+const ad={
+name:document.getElementById('name').value.trim(),
+city:document.getElementById('adCity').value,
+type:document.getElementById('adType').value,
+price:Number(document.getElementById('price').value),
+contact:document.getElementById('contact').value.trim()
+};
+
+if(!ad.name||!ad.city||!ad.type||!ad.contact||
+!Number.isFinite(ad.price)||ad.price<=0){
+document.getElementById('status').textContent='Заполните все поля корректно.';
+return;
+}
+
+ads.unshift(ad);
+
+if(!saveAds()){
+ads.shift();
+document.getElementById('status').textContent='Не удалось сохранить объявление. Проверьте настройки браузера.';
+return;
+}
+
+this.reset();
+document.getElementById('status').textContent='Объявление добавлено!';
+resetSearch();
+});
+
+render();
+</script>
+</body>
+</html>
