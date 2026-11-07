@@ -18,19 +18,69 @@ en:{tagline:'Rent cars, motorcycles and scooters across Thailand',heroTitle:'Fin
 th:{tagline:'เช่ารถยนต์ รถจักรยานยนต์ และสกู๊ตเตอร์ทั่วประเทศไทย',heroTitle:'ค้นหารถสำหรับการเดินทางของคุณ',heroText:'เลือกเมือง ประเภทรถ และข้อเสนอที่เหมาะกับคุณ',searchTitle:'🔎 ค้นหารถเช่า',cityLabel:'เมือง',typeLabel:'ประเภทรถ',allCities:'ทุกเมือง',allTypes:'ทุกประเภท',chooseCity:'เลือกเมือง',chooseType:'เลือกประเภทรถ',searchBtn:'ค้นหารถ',resetBtn:'แสดงทั้งหมด',categories:'ประเภทรถ',catalog:'รายการรถเช่า',addTitle:'➕ ลงประกาศ',storageNote:'ขณะนี้ประกาศจะถูกบันทึกเฉพาะในเบราว์เซอร์นี้ และผู้เข้าชมคนอื่นจะไม่เห็น',nameLabel:'ชื่อรถ',priceLabel:'ราคาต่อวัน ฿',contactLabel:'เบอร์โทรศัพท์หรือ Telegram',publish:'ลงประกาศ',view:'ดูรายการ',count:'พบประกาศ: {n}',empty:'ยังไม่มีประกาศที่ตรงกับการค้นหา',perDay:'ต่อวัน',contact:'ติดต่อ',invalid:'กรุณากรอกข้อมูลให้ถูกต้องครบถ้วน',saved:'เพิ่มประกาศแล้ว!',saveError:'ไม่สามารถบันทึกประกาศได้ โปรดตรวจสอบการตั้งค่าเบราว์เซอร์',car:'รถยนต์',motorcycle:'รถจักรยานยนต์',scooter:'สกู๊ตเตอร์',carPlural:'รถยนต์',motorcyclePlural:'รถจักรยานยนต์',scooterPlural:'สกู๊ตเตอร์',phuket:'ภูเก็ต',pattaya:'พัทยา',bangkok:'กรุงเทพฯ',samui:'เกาะสมุย',krabi:'กระบี่',chiangmai:'เชียงใหม่',huahin:'หัวหิน'},
 zh:{tagline:'泰国全境汽车、摩托车和踏板车租赁',heroTitle:'为旅程寻找合适的车辆',heroText:'选择城市、车辆类型和合适的租赁信息',searchTitle:'🔎 搜索租车',cityLabel:'城市',typeLabel:'车辆类型',allCities:'所有城市',allTypes:'所有类别',chooseCity:'请选择城市',chooseType:'请选择车辆类型',searchBtn:'搜索车辆',resetBtn:'显示全部',categories:'车辆类别',catalog:'租赁信息',addTitle:'➕ 发布租赁信息',storageNote:'目前信息仅保存在此浏览器中，其他访客无法看到。',nameLabel:'车辆名称',priceLabel:'每日价格（泰铢）',contactLabel:'联系电话或 Telegram',publish:'发布信息',view:'查看',count:'找到的信息：{n}',empty:'暂无符合条件的租赁信息。',perDay:'每天',contact:'联系方式',invalid:'请正确填写所有字段。',saved:'信息已添加！',saveError:'无法保存信息，请检查浏览器设置。',car:'汽车',motorcycle:'摩托车',scooter:'踏板车',carPlural:'汽车',motorcyclePlural:'摩托车',scooterPlural:'踏板车',phuket:'普吉岛',pattaya:'芭堤雅',bangkok:'曼谷',samui:'苏梅岛',krabi:'甲米',chiangmai:'清迈',huahin:'华欣'}
 };
+for(const [l,values] of Object.entries({"ru":{"storageNote":"Объявления публикуются в общем каталоге. Указанный контакт будет виден всем посетителям.","saveError":"Не удалось подтвердить публикацию. Проверьте каталог перед повторной отправкой.","loading":"Загружаем объявления…","loadError":"Не удалось загрузить каталог. Проверьте интернет и нажмите «Повторить».","retry":"Повторить","saving":"Публикуем…"},"en":{"storageNote":"Listings are published in the shared catalog. Your contact will be visible to all visitors.","saveError":"Could not confirm publication. Check the catalog before submitting again.","loading":"Loading listings…","loadError":"Could not load listings. Check your connection and select Retry.","retry":"Retry","saving":"Publishing…"},"th":{"storageNote":"ประกาศจะแสดงในรายการสาธารณะ ผู้เข้าชมทุกคนจะเห็นข้อมูลติดต่อของคุณ","saveError":"ไม่สามารถยืนยันการลงประกาศได้ โปรดตรวจสอบรายการก่อนส่งอีกครั้ง","loading":"กำลังโหลดประกาศ…","loadError":"โหลดรายการไม่ได้ โปรดตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง","retry":"ลองอีกครั้ง","saving":"กำลังลงประกาศ…"},"zh":{"storageNote":"信息将发布到公共目录，所有访客均可看到您的联系方式。","saveError":"无法确认发布结果，请检查目录后再提交。","loading":"正在加载信息…","loadError":"无法加载信息，请检查网络后重试。","retry":"重试","saving":"正在发布…"}}))Object.assign(I[l],values);
 const legacyCity={'Пхукет':'phuket','Паттайя':'pattaya','Бангкок':'bangkok','Самуи':'samui','Краби':'krabi','Чиангмай':'chiangmai','Хуахин':'huahin'};
 const legacyType={'Автомобиль':'car','Мотоцикл':'motorcycle','Скутер':'scooter'};
 const $=id=>document.getElementById(id);
 let lang='ru';try{const l=localStorage.getItem('thaiRentLang');if(I[l])lang=l}catch(e){}
-let ads=[];try{const a=JSON.parse(localStorage.getItem('thaiRentAdsV1')||'[]');if(Array.isArray(a))ads=a.map(x=>({...x,city:legacyCity[x.city]||x.city,type:legacyType[x.type]||x.type})).filter(x=>x&&typeof x.name==='string'&&cities.includes(x.city)&&types.includes(x.type))}catch(e){}
+let ads=[],loading=true,loadFailed=false,saving=false,statusKey='';
+const API='https://dmpsztakdhrtsjeogtsm.supabase.co/rest/v1/vehicles';
+const API_KEY='sb_publishable_TpX3YAu_VnMUcYnbdG-cyw_cejZHgcm';
+async function request(query='',options={}){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
+ try{
+  const response=await fetch(API+query,{...options,signal:controller.signal,headers:{apikey:API_KEY,'Content-Type':'application/json',...options.headers}});
+  if(!response.ok)throw new Error('Request failed: '+response.status);
+  return response.status===204?null:await response.json();
+ }finally{clearTimeout(timer)}
+}
+let loadVersion=0;
+async function loadAds(){
+ const version=++loadVersion;loading=true;loadFailed=false;render();
+ try{
+  let result=[];
+  for(let offset=0;;offset+=500){
+   const page=await request('?select=id,name,city,type,price,contact&order=created_at.desc,id.desc&limit=500&offset='+offset);
+   if(!Array.isArray(page))throw new Error('Invalid response');
+   result.push(...page);if(page.length<500)break;
+  }
+  if(version===loadVersion)ads=result;
+ }catch(e){if(version===loadVersion)loadFailed=true}
+ finally{if(version===loadVersion){loading=false;render()}}
+}
+function renderStatus(){
+ $('status').textContent=statusKey?t(statusKey):'';
+ const button=$('adForm').querySelector('[type="submit"]');
+ button.disabled=saving;button.textContent=t(saving?'saving':'publish');
+}
 function t(k){return I[lang][k]||k}
 function opt(value,label){const o=document.createElement('option');o.value=value;o.textContent=label;return o}
 function fillSelect(id,values,first){const s=$(id),v=s.value;s.replaceChildren(opt('',t(first)));values.forEach(x=>s.appendChild(opt(x,t(x))));s.value=values.includes(v)?v:''}
 function node(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n}
-function render(){const filtered=ads.filter(a=>(!$('city').value||a.city===$('city').value)&&(!$('type').value||a.type===$('type').value));$('count').textContent=t('count').replace('{n}',filtered.length);$('list').replaceChildren();if(!filtered.length){$('list').appendChild(node('p',t('empty')));return}filtered.forEach(a=>{const card=node('article',undefined,'card');card.appendChild(node('div',({car:'🚗',motorcycle:'🏍️',scooter:'🛵'})[a.type],'emoji'));card.appendChild(node('h3',a.name));card.appendChild(node('p',t(a.city)+' · '+t(a.type)));card.appendChild(node('p',Number(a.price).toLocaleString(lang==='th'?'th-TH':lang==='zh'?'zh-CN':lang==='en'?'en-US':'ru-RU')+' ฿ / '+t('perDay'),'price'));card.appendChild(node('p',t('contact')+': '+a.contact));$('list').appendChild(card)})}
-function translate(l){lang=l;document.documentElement.lang=l;try{localStorage.setItem('thaiRentLang',l)}catch(e){}document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));document.querySelectorAll('[data-lang]').forEach(b=>{b.classList.toggle('active',b.dataset.lang===l);b.setAttribute('aria-pressed',String(b.dataset.lang===l))});fillSelect('city',cities,'allCities');fillSelect('type',types,'allTypes');fillSelect('adCity',cities,'chooseCity');fillSelect('adType',types,'chooseType');$('categories').replaceChildren();types.forEach((x,i)=>{const card=node('div',undefined,'card');card.appendChild(node('div',['🚗','🏍️','🛵'][i],'emoji'));card.appendChild(node('h3',t(x+'Plural')));const b=node('button',t('view'));b.type='button';b.addEventListener('click',()=>{$('type').value=x;search()});card.appendChild(b);$('categories').appendChild(card)});render()}
+function render(){
+ if(loading||loadFailed){
+  $('count').textContent=t(loading?'loading':'loadError');$('list').replaceChildren();
+  if(loadFailed){const retry=node('button',t('retry'));retry.type='button';retry.addEventListener('click',loadAds);$('list').appendChild(retry)}
+  return;
+ }
+ const filtered=ads.filter(a=>(!$('city').value||a.city===$('city').value)&&(!$('type').value||a.type===$('type').value));$('count').textContent=t('count').replace('{n}',filtered.length);$('list').replaceChildren();if(!filtered.length){$('list').appendChild(node('p',t('empty')));return}filtered.forEach(a=>{const card=node('article',undefined,'card');card.appendChild(node('div',({car:'🚗',motorcycle:'🏍️',scooter:'🛵'})[a.type],'emoji'));card.appendChild(node('h3',a.name));card.appendChild(node('p',t(a.city)+' · '+t(a.type)));card.appendChild(node('p',Number(a.price).toLocaleString(lang==='th'?'th-TH':lang==='zh'?'zh-CN':lang==='en'?'en-US':'ru-RU')+' ฿ / '+t('perDay'),'price'));card.appendChild(node('p',t('contact')+': '+a.contact));$('list').appendChild(card)})}
+function translate(l){lang=l;document.documentElement.lang=l;try{localStorage.setItem('thaiRentLang',l)}catch(e){}document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));document.querySelectorAll('[data-lang]').forEach(b=>{b.classList.toggle('active',b.dataset.lang===l);b.setAttribute('aria-pressed',String(b.dataset.lang===l))});fillSelect('city',cities,'allCities');fillSelect('type',types,'allTypes');fillSelect('adCity',cities,'chooseCity');fillSelect('adType',types,'chooseType');$('categories').replaceChildren();types.forEach((x,i)=>{const card=node('div',undefined,'card');card.appendChild(node('div',['🚗','🏍️','🛵'][i],'emoji'));card.appendChild(node('h3',t(x+'Plural')));const b=node('button',t('view'));b.type='button';b.addEventListener('click',()=>{$('type').value=x;search()});card.appendChild(b);$('categories').appendChild(card)});render();renderStatus()}
 function search(){render();$('catalog').scrollIntoView({behavior:'smooth'})}
 $('searchBtn').addEventListener('click',search);$('resetBtn').addEventListener('click',()=>{$('city').value='';$('type').value='';search()});document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>translate(b.dataset.lang)));
-$('adForm').addEventListener('submit',e=>{e.preventDefault();const ad={name:$('name').value.trim(),city:$('adCity').value,type:$('adType').value,price:Number($('price').value),contact:$('contact').value.trim()};if(!ad.name||!cities.includes(ad.city)||!types.includes(ad.type)||!ad.contact||!Number.isFinite(ad.price)||ad.price<1||ad.price>1000000){$('status').textContent=t('invalid');return}ads.unshift(ad);try{localStorage.setItem('thaiRentAdsV1',JSON.stringify(ads))}catch(e){ads.shift();$('status').textContent=t('saveError');return}e.target.reset();$('status').textContent=t('saved');$('city').value='';$('type').value='';render()});translate(lang);
+$('adForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(saving)return;
+ const ad={name:$('name').value.trim(),city:$('adCity').value,type:$('adType').value,price:Number($('price').value),contact:$('contact').value.trim()};
+ if(!ad.name||ad.name.length>100||!cities.includes(ad.city)||!types.includes(ad.type)||!ad.contact||ad.contact.length>150||!Number.isFinite(ad.price)||ad.price<1||ad.price>1000000){
+  statusKey='invalid';renderStatus();return;
+ }
+ saving=true;statusKey='';renderStatus();
+ const fields=[...e.target.elements];fields.forEach(field=>field.disabled=true);
+ try{
+  await request('',{method:'POST',headers:{Prefer:'return=representation'},body:JSON.stringify(ad)});
+  e.target.reset();statusKey='saved';$('city').value='';$('type').value='';
+  await loadAds();
+ }catch(error){statusKey='saveError'}
+ finally{saving=false;fields.forEach(field=>field.disabled=false);renderStatus()}
+});
+translate(lang);loadAds();
 </script></body></html>
-
