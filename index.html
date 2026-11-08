@@ -7,7 +7,7 @@
 <section class="panel"><h2 data-i="searchTitle"></h2><label for="city" data-i="cityLabel"></label><select id="city"></select><label for="type" data-i="typeLabel"></label><select id="type"></select><button type="button" id="searchBtn" data-i="searchBtn"></button><button type="button" class="secondary" id="resetBtn" data-i="resetBtn"></button></section>
 <section><h2 data-i="categories"></h2><div class="cards" id="categories"></div></section>
 <section id="catalog"><h2 data-i="catalog"></h2><p id="count" aria-live="polite"></p><div id="list" class="cards"></div></section>
-<section class="panel"><h2 data-i="addTitle"></h2><p class="small" data-i="storageNote"></p><form id="adForm"><label for="name" data-i="nameLabel"></label><input id="name" maxlength="100" required><label for="adCity" data-i="cityLabel"></label><select id="adCity" required></select><label for="adType" data-i="typeLabel"></label><select id="adType" required></select><label for="price" data-i="priceLabel"></label><input id="price" type="number" min="1" max="1000000" required><label for="contact" data-i="contactLabel"></label><input id="contact" maxlength="150" required><p class="small" data-i="contactHint"></p><label for="photoUrl" data-i="photoLabel"></label><input id="photoUrl" type="url" maxlength="2000" placeholder="https://…" aria-describedby="photoHint"><p id="photoHint" class="small" data-i="photoHint"></p><img id="photoPreview" class="vehicle-photo" hidden alt=""><p id="photoStatus" class="small" role="status"></p><button type="submit" data-i="publish"></button></form><p id="status" role="status" aria-live="polite"></p></section></main><footer>© 2026 Thai Rent · Thailand</footer>
+<section class="panel"><h2 data-i="addTitle"></h2><p class="small" data-i="storageNote"></p><form id="adForm"><label for="name" data-i="nameLabel"></label><input id="name" maxlength="100" required><label for="adCity" data-i="cityLabel"></label><select id="adCity" required></select><label for="adType" data-i="typeLabel"></label><select id="adType" required></select><label for="price" data-i="priceLabel"></label><input id="price" type="number" min="1" max="1000000" required><label for="contact" data-i="contactLabel"></label><input id="contact" maxlength="150" required><p class="small" data-i="contactHint"></p><label for="photoFile" data-i="fileLabel"></label><input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="fileHint"><p id="fileHint" class="small" data-i="fileHint"></p><button type="button" id="clearPhoto" class="secondary" data-i="clearPhoto"></button><label for="photoUrl" data-i="photoLabel"></label><input id="photoUrl" type="url" maxlength="2000" placeholder="https://…" aria-describedby="photoHint"><p id="photoHint" class="small" data-i="photoHint"></p><img id="photoPreview" class="vehicle-photo" hidden alt=""><p id="photoStatus" class="small" role="status"></p><button type="submit" data-i="publish"></button></form><p id="status" role="status" aria-live="polite"></p></section></main><footer>© 2026 Thai Rent · Thailand</footer>
 <script>
 'use strict';
 const cities=['phuket','pattaya','bangkok','samui','krabi','chiangmai','huahin'];
@@ -20,6 +20,7 @@ zh:{tagline:'泰国全境汽车、摩托车和踏板车租赁',heroTitle:'为旅
 };
 for(const [l,values] of Object.entries({"ru":{"storageNote":"Объявления публикуются в общем каталоге. Указанный контакт будет виден всем посетителям.","saveError":"Не удалось подтвердить публикацию. Проверьте каталог перед повторной отправкой.","loading":"Загружаем объявления…","loadError":"Не удалось загрузить каталог. Проверьте интернет и нажмите «Повторить».","retry":"Повторить","saving":"Публикуем…"},"en":{"storageNote":"Listings are published in the shared catalog. Your contact will be visible to all visitors.","saveError":"Could not confirm publication. Check the catalog before submitting again.","loading":"Loading listings…","loadError":"Could not load listings. Check your connection and select Retry.","retry":"Retry","saving":"Publishing…"},"th":{"storageNote":"ประกาศจะแสดงในรายการสาธารณะ ผู้เข้าชมทุกคนจะเห็นข้อมูลติดต่อของคุณ","saveError":"ไม่สามารถยืนยันการลงประกาศได้ โปรดตรวจสอบรายการก่อนส่งอีกครั้ง","loading":"กำลังโหลดประกาศ…","loadError":"โหลดรายการไม่ได้ โปรดตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง","retry":"ลองอีกครั้ง","saving":"กำลังลงประกาศ…"},"zh":{"storageNote":"信息将发布到公共目录，所有访客均可看到您的联系方式。","saveError":"无法确认发布结果，请检查目录后再提交。","loading":"正在加载信息…","loadError":"无法加载信息，请检查网络后重试。","retry":"重试","saving":"正在发布…"}}))Object.assign(I[l],values);
 for(const [l,v] of Object.entries({"ru":{"photoLabel":"Ссылка на фотографию (необязательно)","photoHint":"Вставьте прямую HTTPS-ссылку на изображение. Загрузка файла с телефона пока недоступна.","contactHint":"Telegram: @username или https://t.me/username. Телефон: с кодом страны, например +66…","photoInvalid":"Укажите корректную HTTPS-ссылку на фотографию.","photoFailed":"Фото не загрузилось. Проверьте ссылку или оставьте поле пустым.","call":"Позвонить","telegram":"Написать в Telegram","whatsapp":"WhatsApp"},"en":{"photoLabel":"Photo URL (optional)","photoHint":"Paste a direct HTTPS image URL. Uploading a file from your phone is not available yet.","contactHint":"Telegram: @username or https://t.me/username. Phone: include the country code, e.g. +66…","photoInvalid":"Enter a valid HTTPS photo URL.","photoFailed":"Photo could not load. Check the URL or leave it empty.","call":"Call","telegram":"Message on Telegram","whatsapp":"WhatsApp"},"th":{"photoLabel":"ลิงก์รูปภาพ (ไม่บังคับ)","photoHint":"วางลิงก์ HTTPS ไปยังรูปภาพโดยตรง ยังไม่รองรับการอัปโหลดไฟล์จากโทรศัพท์","contactHint":"Telegram: @username หรือ https://t.me/username โทรศัพท์: ใส่รหัสประเทศ เช่น +66…","photoInvalid":"กรุณาใส่ลิงก์รูปภาพ HTTPS ที่ถูกต้อง","photoFailed":"โหลดรูปไม่ได้ โปรดตรวจสอบลิงก์หรือเว้นว่าง","call":"โทร","telegram":"ติดต่อทาง Telegram","whatsapp":"WhatsApp"},"zh":{"photoLabel":"照片链接（选填）","photoHint":"粘贴图片的 HTTPS 直链。暂不支持从手机上传文件。","contactHint":"Telegram：@username 或 https://t.me/username。电话：请包含国家代码，例如 +66…","photoInvalid":"请输入有效的 HTTPS 图片链接。","photoFailed":"图片无法加载，请检查链接或留空。","call":"拨打电话","telegram":"通过 Telegram 联系","whatsapp":"WhatsApp"}}))Object.assign(I[l],v);
+for(const [l,v] of Object.entries({"ru":{"fileLabel":"Фотография с телефона","fileHint":"JPG, PNG или WebP, до 5 МБ. Выбранное фото будет опубликовано вместе с объявлением.","clearPhoto":"Убрать фотографию","photoHint":"Или вставьте прямую HTTPS-ссылку на изображение.","fileInvalid":"Выберите JPG, PNG или WebP размером до 5 МБ.","uploadError":"Не удалось загрузить фото. Попробуйте ещё раз — поля объявления сохранены.","preparing":"Подготавливаем фото…","uploading":"Загружаем фото…","fileReady":"Фото готово к публикации.","fileBad":"Не удалось прочитать фотографию. Выберите другое изображение."},"en":{"fileLabel":"Photo from your device","fileHint":"JPG, PNG or WebP, up to 5 MB. The selected photo will be published with your listing.","clearPhoto":"Remove photo","photoHint":"Or paste a direct HTTPS image URL.","fileInvalid":"Choose a JPG, PNG or WebP file up to 5 MB.","uploadError":"Could not upload the photo. Try again — your listing fields are preserved.","preparing":"Preparing photo…","uploading":"Uploading photo…","fileReady":"Photo ready to publish.","fileBad":"Could not read this photo. Choose another image."},"th":{"fileLabel":"รูปภาพจากโทรศัพท์","fileHint":"JPG, PNG หรือ WebP ไม่เกิน 5 MB รูปที่เลือกจะเผยแพร่พร้อมประกาศ","clearPhoto":"ลบรูปที่เลือก","photoHint":"หรือวางลิงก์ HTTPS ไปยังรูปภาพโดยตรง","fileInvalid":"เลือกไฟล์ JPG, PNG หรือ WebP ขนาดไม่เกิน 5 MB","uploadError":"อัปโหลดรูปไม่ได้ โปรดลองอีกครั้ง ข้อมูลประกาศยังอยู่","preparing":"กำลังเตรียมรูป…","uploading":"กำลังอัปโหลดรูป…","fileReady":"รูปพร้อมลงประกาศ","fileBad":"อ่านรูปไม่ได้ กรุณาเลือกรูปอื่น"},"zh":{"fileLabel":"从手机选择照片","fileHint":"JPG、PNG 或 WebP，最大 5 MB。所选照片将随信息公开发布。","clearPhoto":"移除照片","photoHint":"也可以粘贴图片的 HTTPS 直链。","fileInvalid":"请选择不超过 5 MB 的 JPG、PNG 或 WebP 图片。","uploadError":"照片上传失败，请重试。已保留填写的信息。","preparing":"正在处理照片…","uploading":"正在上传照片…","fileReady":"照片已准备好发布。","fileBad":"无法读取照片，请选择其他图片。"}}))Object.assign(I[l],v);
 const legacyCity={'Пхукет':'phuket','Паттайя':'pattaya','Бангкок':'bangkok','Самуи':'samui','Краби':'krabi','Чиангмай':'chiangmai','Хуахин':'huahin'};
 const legacyType={'Автомобиль':'car','Мотоцикл':'motorcycle','Скутер':'scooter'};
 const $=id=>document.getElementById(id);
@@ -52,7 +53,7 @@ async function loadAds(){
 function renderStatus(){
  $('status').textContent=statusKey?t(statusKey):'';
  const button=$('adForm').querySelector('[type="submit"]');
- button.disabled=saving;button.textContent=t(saving?'saving':'publish');
+ button.disabled=saving||photoBusy;button.textContent=t(saving?'saving':'publish');
 }
 function t(k){return I[lang][k]||k}
 function opt(value,label){const o=document.createElement('option');o.value=value;o.textContent=label;return o}
@@ -75,15 +76,52 @@ function contactLinks(value){
  }
  return links;
 }
-let photoFailed=false;
+
+let photoFailed=false,photoBusy=false,photoVersion=0,photoBlob=null,localPhotoUrl=null,uploadedPhotoUrl=null,photoMessage='';
+function photoStatus(){ $('photoStatus').textContent=photoMessage?t(photoMessage):''; }
+function releasePhoto(){if(localPhotoUrl)URL.revokeObjectURL(localPhotoUrl);localPhotoUrl=null;photoBlob=null;uploadedPhotoUrl=null;}
 function previewPhoto(){
+ ++photoVersion;releasePhoto();photoBusy=false;photoFailed=false;photoMessage='';
  const img=$('photoPreview'),url=safePhoto($('photoUrl').value.trim());
- photoFailed=false;$('photoStatus').textContent='';img.hidden=true;
+ $('photoFile').value='';$('photoUrl').disabled=false;img.hidden=true;photoStatus();renderStatus();
  img.onload=()=>{img.hidden=false};
- img.onerror=()=>{img.hidden=true;photoFailed=true;$('photoStatus').textContent=t('photoFailed')};
+ img.onerror=()=>{img.hidden=true;photoFailed=true;photoMessage='photoFailed';photoStatus()};
  if(url){img.referrerPolicy='no-referrer';img.src=url}else img.removeAttribute('src');
 }
 $('photoUrl').addEventListener('input',previewPhoto);
+$('clearPhoto').addEventListener('click',()=>{$('photoUrl').value='';previewPhoto()});
+$('photoFile').addEventListener('change',async ()=>{
+ const file=$('photoFile').files[0];if(!file){previewPhoto();return}
+ const version=++photoVersion;releasePhoto();photoFailed=false;photoBusy=true;photoMessage='preparing';
+ $('photoUrl').value='';$('photoUrl').disabled=true;$('photoPreview').hidden=true;photoStatus();renderStatus();
+ try{
+  if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>5*1024*1024||!file.size)throw new Error('fileInvalid');
+  const bitmap=await createImageBitmap(file);
+  try{
+   if(version!==photoVersion)return;
+   const scale=Math.min(1,1600/Math.max(bitmap.width,bitmap.height));
+   const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(bitmap.width*scale));canvas.height=Math.max(1,Math.round(bitmap.height*scale));
+   const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);
+   const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',.82));
+   if(version!==photoVersion)return;
+   if(!blob||blob.size>5*1024*1024)throw new Error('fileBad');
+   photoBlob=blob;localPhotoUrl=URL.createObjectURL(blob);
+   const img=$('photoPreview');img.onload=()=>{img.hidden=false};img.onerror=()=>{photoFailed=true;photoMessage='fileBad';photoStatus()};
+   img.src=localPhotoUrl;photoMessage='fileReady';
+  }finally{bitmap.close()}
+ }catch(error){if(version===photoVersion){photoFailed=true;photoMessage=error.message==='fileInvalid'?'fileInvalid':'fileBad'}}
+ finally{if(version===photoVersion){photoBusy=false;photoStatus();renderStatus()}}
+});
+async function uploadPhoto(){
+ if(uploadedPhotoUrl)return uploadedPhotoUrl;
+ const path='listings/'+crypto.randomUUID()+'.jpg',root='https://dmpsztakdhrtsjeogtsm.supabase.co/storage/v1/object/';
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);
+ try{
+  const response=await fetch(root+'vehicle-photos/'+path,{method:'POST',headers:{apikey:API_KEY,'Content-Type':'image/jpeg','x-upsert':'false'},body:photoBlob,signal:controller.signal});
+  if(!response.ok)throw new Error('uploadError');
+  uploadedPhotoUrl=root+'public/vehicle-photos/'+path;return uploadedPhotoUrl;
+ }catch(error){throw new Error('uploadError')}finally{clearTimeout(timer)}
+}
 
 function render(){
  if(loading||loadFailed){
@@ -92,11 +130,12 @@ function render(){
   return;
  }
  const filtered=ads.filter(a=>(!$('city').value||a.city===$('city').value)&&(!$('type').value||a.type===$('type').value));$('count').textContent=t('count').replace('{n}',filtered.length);$('list').replaceChildren();if(!filtered.length){$('list').appendChild(node('p',t('empty')));return}filtered.forEach(a=>{const card=node('article',undefined,'card');card.appendChild(node('div',({car:'🚗',motorcycle:'🏍️',scooter:'🛵'})[a.type],'emoji'));if(safePhoto(a.photo_url)){const img=node('img');img.className='vehicle-photo';img.alt=a.name;img.loading='lazy';img.referrerPolicy='no-referrer';img.src=safePhoto(a.photo_url);img.addEventListener('error',()=>img.remove());card.appendChild(img)}card.appendChild(node('h3',a.name));card.appendChild(node('p',t(a.city)+' · '+t(a.type)));card.appendChild(node('p',Number(a.price).toLocaleString(lang==='th'?'th-TH':lang==='zh'?'zh-CN':lang==='en'?'en-US':'ru-RU')+' ฿ / '+t('perDay'),'price'));card.appendChild(node('p',t('contact')+': '+a.contact));const actions=node('div',undefined,'contact-actions');contactLinks(a.contact).forEach(link=>{const a=node('a',t(link.label),'contact-link');a.href=link.href;if(link.href.startsWith('https:')){a.target='_blank';a.rel='noopener noreferrer'}actions.appendChild(a)});card.appendChild(actions);$('list').appendChild(card)})}
-function translate(l){lang=l;document.documentElement.lang=l;try{localStorage.setItem('thaiRentLang',l)}catch(e){}document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));document.querySelectorAll('[data-lang]').forEach(b=>{b.classList.toggle('active',b.dataset.lang===l);b.setAttribute('aria-pressed',String(b.dataset.lang===l))});fillSelect('city',cities,'allCities');fillSelect('type',types,'allTypes');fillSelect('adCity',cities,'chooseCity');fillSelect('adType',types,'chooseType');$('categories').replaceChildren();types.forEach((x,i)=>{const card=node('div',undefined,'card');card.appendChild(node('div',['🚗','🏍️','🛵'][i],'emoji'));card.appendChild(node('h3',t(x+'Plural')));const b=node('button',t('view'));b.type='button';b.addEventListener('click',()=>{$('type').value=x;search()});card.appendChild(b);$('categories').appendChild(card)});render();renderStatus();$('photoStatus').textContent=photoFailed?t('photoFailed'):''}
+function translate(l){lang=l;document.documentElement.lang=l;try{localStorage.setItem('thaiRentLang',l)}catch(e){}document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));document.querySelectorAll('[data-lang]').forEach(b=>{b.classList.toggle('active',b.dataset.lang===l);b.setAttribute('aria-pressed',String(b.dataset.lang===l))});fillSelect('city',cities,'allCities');fillSelect('type',types,'allTypes');fillSelect('adCity',cities,'chooseCity');fillSelect('adType',types,'chooseType');$('categories').replaceChildren();types.forEach((x,i)=>{const card=node('div',undefined,'card');card.appendChild(node('div',['🚗','🏍️','🛵'][i],'emoji'));card.appendChild(node('h3',t(x+'Plural')));const b=node('button',t('view'));b.type='button';b.addEventListener('click',()=>{$('type').value=x;search()});card.appendChild(b);$('categories').appendChild(card)});render();renderStatus();photoStatus()}
 function search(){render();$('catalog').scrollIntoView({behavior:'smooth'})}
 $('searchBtn').addEventListener('click',search);$('resetBtn').addEventListener('click',()=>{$('city').value='';$('type').value='';search()});document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>translate(b.dataset.lang)));
 $('adForm').addEventListener('submit',async e=>{
- e.preventDefault();if(saving)return;
+ e.preventDefault();if(saving||photoBusy)return;
+ if($('photoFile').files.length&&(!photoBlob||photoFailed)){statusKey=photoMessage||'fileBad';renderStatus();return;}
  const ad={name:$('name').value.trim(),city:$('adCity').value,type:$('adType').value,price:Number($('price').value),contact:$('contact').value.trim(),photo_url:safePhoto($('photoUrl').value.trim())};
  if($('photoUrl').value.trim()&&!ad.photo_url){statusKey='photoInvalid';renderStatus();return;}
  if(!ad.name||ad.name.length>100||!cities.includes(ad.city)||!types.includes(ad.type)||!ad.contact||ad.contact.length>150||!Number.isFinite(ad.price)||ad.price<1||ad.price>1000000){
@@ -105,12 +144,14 @@ $('adForm').addEventListener('submit',async e=>{
  saving=true;statusKey='';renderStatus();
  const fields=[...e.target.elements];fields.forEach(field=>field.disabled=true);
  try{
+  if(photoBlob){statusKey='uploading';renderStatus();ad.photo_url=await uploadPhoto();statusKey='saving';renderStatus()}
   await request('',{method:'POST',headers:{Prefer:'return=representation'},body:JSON.stringify(ad)});
   e.target.reset();previewPhoto();statusKey='saved';$('city').value='';$('type').value='';
   await loadAds();
- }catch(error){statusKey='saveError'}
- finally{saving=false;fields.forEach(field=>field.disabled=false);renderStatus()}
+ }catch(error){statusKey=error.message==='uploadError'?'uploadError':'saveError'}
+ finally{saving=false;fields.forEach(field=>field.disabled=false);$('photoUrl').disabled=!!$('photoFile').files.length;renderStatus()}
 });
 translate(lang);loadAds();
 </script></body></html>
+
 
