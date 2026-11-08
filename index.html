@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Thai Rent — Thailand vehicle rental</title><style>
 *{box-sizing:border-box}body{margin:0;background:#f1f6fa;color:#19384c;font:16px system-ui,Arial,sans-serif}header{background:#087fa4;color:white;padding:22px 16px;text-align:center}header h1{margin:0;font-size:34px}header p{margin:8px 0 15px}.langs{display:flex;justify-content:center;gap:7px;flex-wrap:wrap}.langs button{width:auto;background:#ffffff25;border:1px solid #ffffff80;padding:9px 12px}.langs button.active{background:white;color:#086c91}main{max-width:1050px;margin:auto;padding:16px}.hero{background:linear-gradient(120deg,#087fa4,#0bb7a7);color:white;text-align:center;padding:25px 15px;border-radius:16px}.hero h2{margin:0 0 10px}.panel,.card{background:white;padding:20px;border-radius:14px;box-shadow:0 3px 12px #153c5014}section{margin:22px 0}label{display:block;margin-top:10px;font-weight:600}input,select,button{width:100%;padding:12px;margin:7px 0;border-radius:9px;font:inherit}input,select{border:1px solid #bdcdd7;background:white}button{border:0;background:#087fa4;color:white;font-weight:700;cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #ffca48}.secondary{background:#0b918d}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}.card{text-align:center;overflow-wrap:anywhere}.emoji{font-size:42px}.price{font-size:22px;font-weight:700;color:#087fa4}.small{font-size:14px;color:#5b7482}footer{text-align:center;padding:25px;color:#5b7482}#status{min-height:1.5em}h2{line-height:1.25}
-</style></head><body>
+.vehicle-photo{width:100%;height:190px;object-fit:cover;border-radius:10px;background:#e8f1f5}.contact-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.contact-link{display:inline-block;padding:12px;border-radius:9px;background:#087fa4;color:white;text-decoration:none;font-weight:700}.contact-link:focus-visible{outline:3px solid #ffca48}#photoPreview{max-width:360px;margin-top:10px}button:disabled{opacity:.6;cursor:wait}</style></head><body>
 <header><h1>THAI RENT</h1><p data-i="tagline"></p><nav class="langs" aria-label="Language"><button type="button" data-lang="ru">🇷🇺 Русский</button><button type="button" data-lang="en">🇬🇧 English</button><button type="button" data-lang="th">🇹🇭 ไทย</button><button type="button" data-lang="zh">🇨🇳 中文</button></nav></header>
 <main><section class="hero"><h2 data-i="heroTitle"></h2><p data-i="heroText"></p></section>
 <section class="panel"><h2 data-i="searchTitle"></h2><label for="city" data-i="cityLabel"></label><select id="city"></select><label for="type" data-i="typeLabel"></label><select id="type"></select><button type="button" id="searchBtn" data-i="searchBtn"></button><button type="button" class="secondary" id="resetBtn" data-i="resetBtn"></button></section>
 <section><h2 data-i="categories"></h2><div class="cards" id="categories"></div></section>
 <section id="catalog"><h2 data-i="catalog"></h2><p id="count" aria-live="polite"></p><div id="list" class="cards"></div></section>
-<section class="panel"><h2 data-i="addTitle"></h2><p class="small" data-i="storageNote"></p><form id="adForm"><label for="name" data-i="nameLabel"></label><input id="name" maxlength="100" required><label for="adCity" data-i="cityLabel"></label><select id="adCity" required></select><label for="adType" data-i="typeLabel"></label><select id="adType" required></select><label for="price" data-i="priceLabel"></label><input id="price" type="number" min="1" max="1000000" required><label for="contact" data-i="contactLabel"></label><input id="contact" maxlength="150" required><button type="submit" data-i="publish"></button></form><p id="status" role="status" aria-live="polite"></p></section></main><footer>© 2026 Thai Rent · Thailand</footer>
+<section class="panel"><h2 data-i="addTitle"></h2><p class="small" data-i="storageNote"></p><form id="adForm"><label for="name" data-i="nameLabel"></label><input id="name" maxlength="100" required><label for="adCity" data-i="cityLabel"></label><select id="adCity" required></select><label for="adType" data-i="typeLabel"></label><select id="adType" required></select><label for="price" data-i="priceLabel"></label><input id="price" type="number" min="1" max="1000000" required><label for="contact" data-i="contactLabel"></label><input id="contact" maxlength="150" required><p class="small" data-i="contactHint"></p><label for="photoUrl" data-i="photoLabel"></label><input id="photoUrl" type="url" maxlength="2000" placeholder="https://…" aria-describedby="photoHint"><p id="photoHint" class="small" data-i="photoHint"></p><img id="photoPreview" class="vehicle-photo" hidden alt=""><p id="photoStatus" class="small" role="status"></p><button type="submit" data-i="publish"></button></form><p id="status" role="status" aria-live="polite"></p></section></main><footer>© 2026 Thai Rent · Thailand</footer>
 <script>
 'use strict';
 const cities=['phuket','pattaya','bangkok','samui','krabi','chiangmai','huahin'];
@@ -19,6 +19,7 @@ th:{tagline:'เช่ารถยนต์ รถจักรยานยนต
 zh:{tagline:'泰国全境汽车、摩托车和踏板车租赁',heroTitle:'为旅程寻找合适的车辆',heroText:'选择城市、车辆类型和合适的租赁信息',searchTitle:'🔎 搜索租车',cityLabel:'城市',typeLabel:'车辆类型',allCities:'所有城市',allTypes:'所有类别',chooseCity:'请选择城市',chooseType:'请选择车辆类型',searchBtn:'搜索车辆',resetBtn:'显示全部',categories:'车辆类别',catalog:'租赁信息',addTitle:'➕ 发布租赁信息',storageNote:'目前信息仅保存在此浏览器中，其他访客无法看到。',nameLabel:'车辆名称',priceLabel:'每日价格（泰铢）',contactLabel:'联系电话或 Telegram',publish:'发布信息',view:'查看',count:'找到的信息：{n}',empty:'暂无符合条件的租赁信息。',perDay:'每天',contact:'联系方式',invalid:'请正确填写所有字段。',saved:'信息已添加！',saveError:'无法保存信息，请检查浏览器设置。',car:'汽车',motorcycle:'摩托车',scooter:'踏板车',carPlural:'汽车',motorcyclePlural:'摩托车',scooterPlural:'踏板车',phuket:'普吉岛',pattaya:'芭堤雅',bangkok:'曼谷',samui:'苏梅岛',krabi:'甲米',chiangmai:'清迈',huahin:'华欣'}
 };
 for(const [l,values] of Object.entries({"ru":{"storageNote":"Объявления публикуются в общем каталоге. Указанный контакт будет виден всем посетителям.","saveError":"Не удалось подтвердить публикацию. Проверьте каталог перед повторной отправкой.","loading":"Загружаем объявления…","loadError":"Не удалось загрузить каталог. Проверьте интернет и нажмите «Повторить».","retry":"Повторить","saving":"Публикуем…"},"en":{"storageNote":"Listings are published in the shared catalog. Your contact will be visible to all visitors.","saveError":"Could not confirm publication. Check the catalog before submitting again.","loading":"Loading listings…","loadError":"Could not load listings. Check your connection and select Retry.","retry":"Retry","saving":"Publishing…"},"th":{"storageNote":"ประกาศจะแสดงในรายการสาธารณะ ผู้เข้าชมทุกคนจะเห็นข้อมูลติดต่อของคุณ","saveError":"ไม่สามารถยืนยันการลงประกาศได้ โปรดตรวจสอบรายการก่อนส่งอีกครั้ง","loading":"กำลังโหลดประกาศ…","loadError":"โหลดรายการไม่ได้ โปรดตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง","retry":"ลองอีกครั้ง","saving":"กำลังลงประกาศ…"},"zh":{"storageNote":"信息将发布到公共目录，所有访客均可看到您的联系方式。","saveError":"无法确认发布结果，请检查目录后再提交。","loading":"正在加载信息…","loadError":"无法加载信息，请检查网络后重试。","retry":"重试","saving":"正在发布…"}}))Object.assign(I[l],values);
+for(const [l,v] of Object.entries({"ru":{"photoLabel":"Ссылка на фотографию (необязательно)","photoHint":"Вставьте прямую HTTPS-ссылку на изображение. Загрузка файла с телефона пока недоступна.","contactHint":"Telegram: @username или https://t.me/username. Телефон: с кодом страны, например +66…","photoInvalid":"Укажите корректную HTTPS-ссылку на фотографию.","photoFailed":"Фото не загрузилось. Проверьте ссылку или оставьте поле пустым.","call":"Позвонить","telegram":"Написать в Telegram","whatsapp":"WhatsApp"},"en":{"photoLabel":"Photo URL (optional)","photoHint":"Paste a direct HTTPS image URL. Uploading a file from your phone is not available yet.","contactHint":"Telegram: @username or https://t.me/username. Phone: include the country code, e.g. +66…","photoInvalid":"Enter a valid HTTPS photo URL.","photoFailed":"Photo could not load. Check the URL or leave it empty.","call":"Call","telegram":"Message on Telegram","whatsapp":"WhatsApp"},"th":{"photoLabel":"ลิงก์รูปภาพ (ไม่บังคับ)","photoHint":"วางลิงก์ HTTPS ไปยังรูปภาพโดยตรง ยังไม่รองรับการอัปโหลดไฟล์จากโทรศัพท์","contactHint":"Telegram: @username หรือ https://t.me/username โทรศัพท์: ใส่รหัสประเทศ เช่น +66…","photoInvalid":"กรุณาใส่ลิงก์รูปภาพ HTTPS ที่ถูกต้อง","photoFailed":"โหลดรูปไม่ได้ โปรดตรวจสอบลิงก์หรือเว้นว่าง","call":"โทร","telegram":"ติดต่อทาง Telegram","whatsapp":"WhatsApp"},"zh":{"photoLabel":"照片链接（选填）","photoHint":"粘贴图片的 HTTPS 直链。暂不支持从手机上传文件。","contactHint":"Telegram：@username 或 https://t.me/username。电话：请包含国家代码，例如 +66…","photoInvalid":"请输入有效的 HTTPS 图片链接。","photoFailed":"图片无法加载，请检查链接或留空。","call":"拨打电话","telegram":"通过 Telegram 联系","whatsapp":"WhatsApp"}}))Object.assign(I[l],v);
 const legacyCity={'Пхукет':'phuket','Паттайя':'pattaya','Бангкок':'bangkok','Самуи':'samui','Краби':'krabi','Чиангмай':'chiangmai','Хуахин':'huahin'};
 const legacyType={'Автомобиль':'car','Мотоцикл':'motorcycle','Скутер':'scooter'};
 const $=id=>document.getElementById(id);
@@ -40,7 +41,7 @@ async function loadAds(){
  try{
   let result=[];
   for(let offset=0;;offset+=500){
-   const page=await request('?select=id,name,city,type,price,contact&order=created_at.desc,id.desc&limit=500&offset='+offset);
+   const page=await request('?select=id,name,city,type,price,contact,photo_url&order=created_at.desc,id.desc&limit=500&offset='+offset);
    if(!Array.isArray(page))throw new Error('Invalid response');
    result.push(...page);if(page.length<500)break;
   }
@@ -57,19 +58,47 @@ function t(k){return I[lang][k]||k}
 function opt(value,label){const o=document.createElement('option');o.value=value;o.textContent=label;return o}
 function fillSelect(id,values,first){const s=$(id),v=s.value;s.replaceChildren(opt('',t(first)));values.forEach(x=>s.appendChild(opt(x,t(x))));s.value=values.includes(v)?v:''}
 function node(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n}
+
+function safePhoto(value){
+ try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password?u.href:null}catch(e){return null}
+}
+function contactLinks(value){
+ const raw=String(value||'').trim(),links=[];
+ const tg=raw.match(/^(?:@|https:\/\/t\.me\/)([a-zA-Z][a-zA-Z0-9_]{4,31})\/?$/);
+ if(tg)return [{label:'telegram',href:'https://t.me/'+tg[1]}];
+ if(/^\+?[\d\s().-]+$/.test(raw)){
+  const number=raw.replace(/[\s().-]/g,'');
+  if(/^\+?\d{7,15}$/.test(number)){
+   links.push({label:'call',href:'tel:'+number});
+   if(number.startsWith('+'))links.push({label:'whatsapp',href:'https://wa.me/'+number.slice(1)});
+  }
+ }
+ return links;
+}
+let photoFailed=false;
+function previewPhoto(){
+ const img=$('photoPreview'),url=safePhoto($('photoUrl').value.trim());
+ photoFailed=false;$('photoStatus').textContent='';img.hidden=true;
+ img.onload=()=>{img.hidden=false};
+ img.onerror=()=>{img.hidden=true;photoFailed=true;$('photoStatus').textContent=t('photoFailed')};
+ if(url){img.referrerPolicy='no-referrer';img.src=url}else img.removeAttribute('src');
+}
+$('photoUrl').addEventListener('input',previewPhoto);
+
 function render(){
  if(loading||loadFailed){
   $('count').textContent=t(loading?'loading':'loadError');$('list').replaceChildren();
   if(loadFailed){const retry=node('button',t('retry'));retry.type='button';retry.addEventListener('click',loadAds);$('list').appendChild(retry)}
   return;
  }
- const filtered=ads.filter(a=>(!$('city').value||a.city===$('city').value)&&(!$('type').value||a.type===$('type').value));$('count').textContent=t('count').replace('{n}',filtered.length);$('list').replaceChildren();if(!filtered.length){$('list').appendChild(node('p',t('empty')));return}filtered.forEach(a=>{const card=node('article',undefined,'card');card.appendChild(node('div',({car:'🚗',motorcycle:'🏍️',scooter:'🛵'})[a.type],'emoji'));card.appendChild(node('h3',a.name));card.appendChild(node('p',t(a.city)+' · '+t(a.type)));card.appendChild(node('p',Number(a.price).toLocaleString(lang==='th'?'th-TH':lang==='zh'?'zh-CN':lang==='en'?'en-US':'ru-RU')+' ฿ / '+t('perDay'),'price'));card.appendChild(node('p',t('contact')+': '+a.contact));$('list').appendChild(card)})}
-function translate(l){lang=l;document.documentElement.lang=l;try{localStorage.setItem('thaiRentLang',l)}catch(e){}document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));document.querySelectorAll('[data-lang]').forEach(b=>{b.classList.toggle('active',b.dataset.lang===l);b.setAttribute('aria-pressed',String(b.dataset.lang===l))});fillSelect('city',cities,'allCities');fillSelect('type',types,'allTypes');fillSelect('adCity',cities,'chooseCity');fillSelect('adType',types,'chooseType');$('categories').replaceChildren();types.forEach((x,i)=>{const card=node('div',undefined,'card');card.appendChild(node('div',['🚗','🏍️','🛵'][i],'emoji'));card.appendChild(node('h3',t(x+'Plural')));const b=node('button',t('view'));b.type='button';b.addEventListener('click',()=>{$('type').value=x;search()});card.appendChild(b);$('categories').appendChild(card)});render();renderStatus()}
+ const filtered=ads.filter(a=>(!$('city').value||a.city===$('city').value)&&(!$('type').value||a.type===$('type').value));$('count').textContent=t('count').replace('{n}',filtered.length);$('list').replaceChildren();if(!filtered.length){$('list').appendChild(node('p',t('empty')));return}filtered.forEach(a=>{const card=node('article',undefined,'card');card.appendChild(node('div',({car:'🚗',motorcycle:'🏍️',scooter:'🛵'})[a.type],'emoji'));if(safePhoto(a.photo_url)){const img=node('img');img.className='vehicle-photo';img.alt=a.name;img.loading='lazy';img.referrerPolicy='no-referrer';img.src=safePhoto(a.photo_url);img.addEventListener('error',()=>img.remove());card.appendChild(img)}card.appendChild(node('h3',a.name));card.appendChild(node('p',t(a.city)+' · '+t(a.type)));card.appendChild(node('p',Number(a.price).toLocaleString(lang==='th'?'th-TH':lang==='zh'?'zh-CN':lang==='en'?'en-US':'ru-RU')+' ฿ / '+t('perDay'),'price'));card.appendChild(node('p',t('contact')+': '+a.contact));const actions=node('div',undefined,'contact-actions');contactLinks(a.contact).forEach(link=>{const a=node('a',t(link.label),'contact-link');a.href=link.href;if(link.href.startsWith('https:')){a.target='_blank';a.rel='noopener noreferrer'}actions.appendChild(a)});card.appendChild(actions);$('list').appendChild(card)})}
+function translate(l){lang=l;document.documentElement.lang=l;try{localStorage.setItem('thaiRentLang',l)}catch(e){}document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));document.querySelectorAll('[data-lang]').forEach(b=>{b.classList.toggle('active',b.dataset.lang===l);b.setAttribute('aria-pressed',String(b.dataset.lang===l))});fillSelect('city',cities,'allCities');fillSelect('type',types,'allTypes');fillSelect('adCity',cities,'chooseCity');fillSelect('adType',types,'chooseType');$('categories').replaceChildren();types.forEach((x,i)=>{const card=node('div',undefined,'card');card.appendChild(node('div',['🚗','🏍️','🛵'][i],'emoji'));card.appendChild(node('h3',t(x+'Plural')));const b=node('button',t('view'));b.type='button';b.addEventListener('click',()=>{$('type').value=x;search()});card.appendChild(b);$('categories').appendChild(card)});render();renderStatus();$('photoStatus').textContent=photoFailed?t('photoFailed'):''}
 function search(){render();$('catalog').scrollIntoView({behavior:'smooth'})}
 $('searchBtn').addEventListener('click',search);$('resetBtn').addEventListener('click',()=>{$('city').value='';$('type').value='';search()});document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>translate(b.dataset.lang)));
 $('adForm').addEventListener('submit',async e=>{
  e.preventDefault();if(saving)return;
- const ad={name:$('name').value.trim(),city:$('adCity').value,type:$('adType').value,price:Number($('price').value),contact:$('contact').value.trim()};
+ const ad={name:$('name').value.trim(),city:$('adCity').value,type:$('adType').value,price:Number($('price').value),contact:$('contact').value.trim(),photo_url:safePhoto($('photoUrl').value.trim())};
+ if($('photoUrl').value.trim()&&!ad.photo_url){statusKey='photoInvalid';renderStatus();return;}
  if(!ad.name||ad.name.length>100||!cities.includes(ad.city)||!types.includes(ad.type)||!ad.contact||ad.contact.length>150||!Number.isFinite(ad.price)||ad.price<1||ad.price>1000000){
   statusKey='invalid';renderStatus();return;
  }
@@ -77,10 +106,11 @@ $('adForm').addEventListener('submit',async e=>{
  const fields=[...e.target.elements];fields.forEach(field=>field.disabled=true);
  try{
   await request('',{method:'POST',headers:{Prefer:'return=representation'},body:JSON.stringify(ad)});
-  e.target.reset();statusKey='saved';$('city').value='';$('type').value='';
+  e.target.reset();previewPhoto();statusKey='saved';$('city').value='';$('type').value='';
   await loadAds();
  }catch(error){statusKey='saveError'}
  finally{saving=false;fields.forEach(field=>field.disabled=false);renderStatus()}
 });
 translate(lang);loadAds();
 </script></body></html>
+
